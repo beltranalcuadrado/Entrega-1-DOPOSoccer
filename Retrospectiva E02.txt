@@ -1,0 +1,43 @@
+RETROSPECTIVA
+
+1. ¿Cuál fue el tiempo total invertido por cada uno de ustedes? (Horas)
+- Wilmar: 14 horas.
+- Santiago: 5 horas.
+
+2. ¿Cuál es el estado actual del proyecto? ¿Por qué?
+La versión uno no está completa. La capa de dominio está terminada para el nivel básico Jugador vs Jugador. Incluye:
+- movimiento, salto y patada de los jugadores
+- física del balón (gravedad, rebote y fricción)
+- choque entre jugador y balón
+- detección de goles con reinicio desde el centro
+- partidos por tiempo (con muerte súbita) y por goles
+- pausa, terminar el partido y ganador
+- la fachada HeadSoccer, la excepción POOBSoccerException y el registro de errores con Log
+
+El dominio cuenta con 14 pruebas de unidad que pasan.
+
+La capa de presentación se desarrolló en paralelo, pero todavía no compila integrada con el dominio. Se construyó con nombres de métodos distintos a los de la fachada acordada, y no alcanzamos a hacer la integración antes de la entrega.
+
+3. Considerando las prácticas XP, ¿cuál fue la más útil? ¿Por qué?
+Diseño simple y pruebas de unidad. Construimos el dominio en pasos pequeños: primero el jugador, luego el balón y después el partido. Probamos cada clase antes de pasar a la siguiente, y las pruebas nos ayudaron a encontrar errores, como el balón que se frenaba de golpe al moverse hacia la izquierda.
+
+4. ¿Cuál consideran fue el mayor logro? ¿Por qué?
+Implementar la física del juego desde cero. Tuvimos que entender que el juego avanza por fotogramas y que cada objeto necesita, además de su posición, una velocidad que la gravedad va modificando. También dejamos el dominio completo y probado detrás de una fachada, así que la presentación solo tiene que conectarse a ella.
+
+5. ¿Cuál consideran fue el mayor problema técnico? ¿Qué hicieron para resolverlo?
+En el dominio, el problema fue el manejo de tipos numéricos en el rebote y la fricción del balón. En Java, 7/10 entre enteros da 0, entonces el balón no rebotaba. Lo resolvimos con constantes double, conversiones explícitas (int) y comparaciones con Math.abs para que el comportamiento fuera igual en ambas direcciones.
+
+El otro problema fue la integración entre capas. Aunque acordamos la fachada, la presentación terminó llamando directamente a clases y métodos del dominio que no existían, y eso generó errores de compilación. No alcanzamos a resolverlo para esta entrega, y queda como lo primero por hacer en la siguiente.
+
+6. ¿Qué hicieron bien como equipo? ¿Qué se comprometen a hacer para mejorar los resultados?
+Nos dividimos el trabajo por capas y acordamos desde el principio los métodos de la fachada. Para mejorar, nos comprometemos a:
+- Empezar antes.
+- Integrar el código con frecuencia en lugar de dejarlo para el final.
+- Compilar todo junto antes de entregar.
+- Usar un repositorio compartido (GitHub).
+- Actualizar el diagrama de clases a medida que cambia el diseño.
+
+7. ¿Qué referencias usaron? ¿Cuál fue la más útil?
+- Oracle. (s. f.). Class Math (Java SE 25). https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Math.html
+- Oracle. (s. f.). Package java.util.logging (Java SE 25). https://docs.oracle.com/en/java/javase/25/docs/api/java.logging/java/util/logging/package-summary.html
+- JUnit. (s. f.). JUnit 4 – Getting started. https://junit.org/junit4/
